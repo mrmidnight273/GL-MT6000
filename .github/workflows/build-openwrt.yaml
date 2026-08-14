@@ -73,7 +73,7 @@ jobs:
           
       - name: Clone Custom Proton Theme
         run: |
-          git clone https://github.com/mrmidnight273/luci-theme-proton2025.git package/luci-theme-proton
+          git clone https://github.com/mrmidnight273/luci-theme-proton2025.git package/luci-theme-proton2025
 
       - name: Setup configuration and custom files
         run: |
