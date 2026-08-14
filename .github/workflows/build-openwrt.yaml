@@ -71,7 +71,7 @@ jobs:
           # run again because sometimes it misses some dependencies
           ./scripts/feeds install -a
           
-        - name: Clone Custom Proton Theme
+      - name: Clone Custom Proton Theme
         run: |
           git clone https://github.com/mrmidnight273/luci-theme-proton2025.git package/luci-theme-proton
 
