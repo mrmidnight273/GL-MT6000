@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Set Proton2025 as the primary LuCI media theme on boot
+uci set luci.main.mediaurlbase='/luci-static/proton2025'
+uci commit luci
+
+exit 0
