@@ -1,0 +1,66 @@
+#!/bin/sh
+
+cat << 'EOF' > /etc/config/wireless
+config wifi-device 'radio0'
+	option type 'mac80211'
+	option path 'platform/soc/18000000.wifi'
+	option band '2g'
+	option channel '1'
+	option htmode 'HE20'
+	option cell_density '0'
+	option country 'PA'
+	option vendor_vht '1'
+	option itxbfen '1'
+	option he_twt_responder '1'
+	option disabled '0'
+
+config wifi-iface 'default_radio0'
+	option device 'radio0'
+	option network 'lan'
+	option mode 'ap'
+	option ssid 'Vault 101'
+	option encryption 'sae-mixed'
+	option key 'vaultdweller'
+	option disassoc_low_ack '0'
+	option ieee80211k '1'
+	option bss_transition '1'
+
+config wifi-device 'radio1'
+	option type 'mac80211'
+	option path 'platform/soc/18000000.wifi+1'
+	option band '5g'
+	option channel '100'
+	option htmode 'HE160'
+	option cell_density '0'
+	option country 'PA'
+	option itxbfen '1'
+	option he_twt_responder '1'
+	option disabled '0'
+
+config wifi-iface 'default_radio1'
+	option device 'radio1'
+	option network 'lan'
+	option mode 'ap'
+	option ssid 'Vault 101ax'
+	option encryption 'sae-mixed'
+	option key 'vaultdweller'
+	option disassoc_low_ack '0'
+	option ieee80211k '1'
+	option bss_transition '1'
+
+config wifi-iface 'wifinet2'
+	option device 'radio0'
+	option mode 'ap'
+	option ssid 'Vault101IoT'
+	option encryption 'psk2'
+	option key 'dxSK6969!@$'
+	option network 'lan'
+	option isolate '1'
+	option disassoc_low_ack '0'
+EOF
+
+# Commit wireless config and reload wifi subsystem
+uci commit wireless
+wifi reload
+
+exit 0
