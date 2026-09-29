@@ -54,13 +54,13 @@ jobs:
           sudo apt autoremove -y && sudo apt clean -y
 
       - name: Checkout remote repository
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           repository: ${{ env.REMOTE_REPOSITORY }}
           ref: ${{ needs.check_commits.outputs.remote_branch }}
 
       - name: Checkout current repository
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           path: "builder_repo"
 
@@ -70,14 +70,12 @@ jobs:
           ./scripts/feeds install -a
           # run again because sometimes it misses some dependencies
           ./scripts/feeds install -a
-          
+
       - name: Clone Custom Argon Theme
         run: |
-          # If forked, replace jerrykuku with your GitHub username
-          git clone https://github.com/mrmidnight273/luci-theme-argon.git package/luci-theme-argon
-          git clone https://github.com/mrmidnight273/luci-app-argon-config.git package/luci-app-argon-config
+          git clone -b master --depth 1 https://github.com/mrmidnight273/luci-theme-argon.git package/luci-theme-argon
+          git clone -b master --depth 1 https://github.com/mrmidnight273/luci-app-argon-config.git package/luci-app-argon-config
 
-      
       - name: Setup configuration and custom files
         run: |
           # delete unneeded folders and patch files with repository info
@@ -108,7 +106,7 @@ jobs:
           cd firmware && sha256sum openwrt-*-sysupgrade.bin >sha256sums ||:
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: gl-mt6000-firmware
           path: firmware/*
@@ -125,6 +123,7 @@ jobs:
           ### 📝 Build Information
           - **Target:** [Flint 2 (GL-MT6000)](https://openwrt.org/toh/gl.inet/gl-mt6000)
           - **Configuration:** [${{ env.CONFIG_FILE }}](${{ env.CONFIG_FILE }})
+          - **Theme:** Argon (Baked from fork)
           - **WiFi UCODE scripts**
           - **Wireguard VPN**
           - **Policy Based Routing**
