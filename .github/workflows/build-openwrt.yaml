@@ -71,10 +71,13 @@ jobs:
           # run again because sometimes it misses some dependencies
           ./scripts/feeds install -a
           
-      - name: Clone Custom Proton Theme
+      - name: Clone Custom Argon Theme
         run: |
-          git clone https://github.com/mrmidnight273/luci-theme-proton2025.git package/luci-theme-proton2025
+          # If forked, replace jerrykuku with your GitHub username
+          git clone https://github.com/mrmidnight273/luci-theme-argon.git package/luci-theme-argon
+          git clone https://github.com/mrmidnight273/luci-app-argon-config.git package/luci-app-argon-config
 
+      
       - name: Setup configuration and custom files
         run: |
           # delete unneeded folders and patch files with repository info
